@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-24.04         # ubuntu-lastest can only be used  
      defaults:
       run:
-      working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
+        working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
     steps: 
       - name: "Checkout"                         
         uses: actions/chechout@v4  # This clones the repo to the ubuntu server
