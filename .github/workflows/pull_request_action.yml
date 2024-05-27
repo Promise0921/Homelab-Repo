@@ -4,7 +4,7 @@ on:                     # Not optional(Required)
   push:                 # Define the event that triggers the workflow automatically
     branches:           # Define the target
       - master
-      #- test          # This is to show that multiple branches can be targeted for a specific event trigger
+      - test          # This is to show that multiple branches can be targeted for a specific event trigger
 
   pull_request:
     branches:
