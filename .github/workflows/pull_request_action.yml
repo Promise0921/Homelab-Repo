@@ -4,20 +4,20 @@ on:                     # Not optional(Required)
   push:                 # Define the event that triggers the workflow automatically
     branches:           # Define the target
       - main
-      # - test          # This is to shows that multiple barnches can be targeted for a specific event triger
+      # - test          # This is to shows that multiple branches can be targeted for a specific event triger
 
-  pull_reqest:
-    barnches:
+  pull_request:
+    branches:
       - main 
-      #- test -         # This is to shows that multiple barnches can be targeted for a specific event triger
+      #- test -         # This is to shows that multiple branches can be targeted for a specific event triger
 
 # Defining the variables on a workflow level
-  env: 
-    TERRAFORM_VERSION: 1.7.2
-    TERRAGRUNT_VERSION: 0.56.0
-    TERRAFORM_WORKING_DIR: './applied/qa/ec2'
+env: 
+  TERRAFORM_VERSION: 1.7.2
+  TERRAGRUNT_VERSION: 0.56.0
+  TERRAFORM_WORKING_DIR: './applied/qa/ec2'
 
-Permissions:            # This will use the token in the code to run
+permissions:            # This will use the token in the code to run
   contents: write
   pull-requests: read
   issues: write
@@ -35,7 +35,7 @@ jobs:
         working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
     steps: 
       - name: "Checkout"                         
-        uses: actions/chechout@v4  # This clones the repo to the ubuntu server
+        uses: actions/checkout@v4  # This clones the repo to the ubuntu server
         with:                      # This switches (checkout) to the approciate branch
           ref: ${{github.event.pull_request.head.ref}}          # Switches to the  head-ref branch
 
@@ -88,7 +88,7 @@ jobs:
         working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
     steps: 
       - name: "Checkout"                         
-        uses: actions/chechout@v4  # This clones the repo to the ubuntu server
+        uses: actions/checkout@v4  # This clones the repo to the ubuntu server
         with:                      # This switches (checkout) to the approciate branch
           ref: ${{ github.event.pull_request.head.ref }}          # Switches to the  head-ref branch
 
