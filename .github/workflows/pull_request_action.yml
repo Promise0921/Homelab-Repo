@@ -50,7 +50,7 @@ jobs:
       - name: "Install Terragrunt"
         uses: autero1/action-terragrunt@v3
         with:
-          terragrunt_version: ${{ enV.TERRAGRUNT_VERSION }}             ## Referencing the enviroment variable
+          terragrunt-version: ${{ enV.TERRAGRUNT_VERSION }}             ## Referencing the enviroment variable
 
 ## Configuring the AWS credential using key ID and access key
      - name: Configure AWS Credentials
@@ -81,7 +81,7 @@ jobs:
 
   apply:
     name: "Terragrunt Apply"
-    if: github.event_name == "push"
+    if: github.event_name == 'push'
     runs-on: ubuntu-24.04         # ubuntu-lastest can only be used  
      defaults:
       run:
@@ -103,7 +103,7 @@ jobs:
       - name: "Install Terragrunt"
         uses: autero1/action-terragrunt@v3
         with:
-          terragrunt_version: ${{ enV.TERRAGRUNT_VERSION }}
+          terragrunt-version: ${{ enV.TERRAGRUNT_VERSION }}
 
 ## Configuring the AWS credential using key ID and access key
      - name: "Configure AWS Credentials"
