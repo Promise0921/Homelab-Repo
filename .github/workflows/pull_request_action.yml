@@ -39,20 +39,20 @@ jobs:             #first job
         with:                      # This switches (checkout) to the approciate branch
           ref: ${{github.event.pull_request.head.ref}}          # Switches to the  head-ref branch
 
-## Installing terraform to the ubuntu server
+
       - name: "Install Terraform"
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ env.TERRAFORM_VERSION }}             ## Referencing the enviroment variable
           terraform_wrapper: true
 
-## Installing terragrunt to the ubuntu server
+
       - name: "Install Terragrunt"
         uses: autero1/action-terragrunt@v3
         with:
           terragrunt-version: ${{ env.TERRAGRUNT_VERSION }}             ## Referencing the enviroment variable
 
-## Configuring the AWS credential using key ID and access key
+
      - name: Configure AWS Credentials
        uses: aws-actions/configure-aws-credentials@v4
        with:
