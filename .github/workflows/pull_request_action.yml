@@ -50,7 +50,7 @@ jobs:
       - name: "Install Terragrunt"
         uses: autero1/action-terragrunt@v3
         with:
-          terragrunt-version: ${{ enV.TERRAGRUNT_VERSION }}             ## Referencing the enviroment variable
+          terragrunt-version: ${{ env.TERRAGRUNT_VERSION }}             ## Referencing the enviroment variable
 
 ## Configuring the AWS credential using key ID and access key
      - name: Configure AWS Credentials
@@ -103,7 +103,7 @@ jobs:
       - name: "Install Terragrunt"
         uses: autero1/action-terragrunt@v3
         with:
-          terragrunt-version: ${{ enV.TERRAGRUNT_VERSION }}
+          terragrunt-version: ${{ env.TERRAGRUNT_VERSION }}
 
 ## Configuring the AWS credential using key ID and access key
      - name: "Configure AWS Credentials"
