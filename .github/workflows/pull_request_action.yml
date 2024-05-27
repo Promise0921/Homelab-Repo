@@ -11,8 +11,7 @@ on:                     # Not optional(Required)
       - master 
       #- test -         # This is to shows that multiple branches can be targeted for a specific event triger
 
-# Defining the variables on a workflow level
-env: 
+env:                      # Defining the variables on a workflow level
   TERRAFORM_VERSION: 1.7.2
   TERRAGRUNT_VERSION: 0.56.0
   TERRAFORM_WORKING_DIR: './applied/qa/ec2'
@@ -24,8 +23,8 @@ permissions:            # This will use the token in the code to run
 
 concurrency: Cloudenviroment      # This ensures that only a single workflow will run at a time
 
-# This groups together all the jobs that run in the workflow file.
-jobs:             #first job                  
+
+jobs:                              # This groups together all the jobs that run in the workflow file. 
   plan:                          
     name: "Terragrunt Init, validate, and Plan"
     if: github.event_name == 'pull_request'       # The Condtional statement: If the event that triggers my work flow is a pull request then github actions will run the workflow
@@ -39,21 +38,18 @@ jobs:             #first job
         with:                      # This switches (checkout) to the approciate branch
           ref: ${{github.event.pull_request.head.ref}}          # Switches to the  head-ref branch
 
-
-      - name: "Install Terraform"
+      - name: "Install Terraform"         ## Installing terraform to the ubuntu server
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ env.TERRAFORM_VERSION }}             ## Referencing the enviroment variable
           terraform_wrapper: true
 
-
-      - name: "Install Terragrunt"
+      - name: "Install Terragrunt"              ## Installing terragrunt to the ubuntu server
         uses: autero1/action-terragrunt@v3
         with:
           terragrunt-version: ${{ env.TERRAGRUNT_VERSION }}             ## Referencing the enviroment variable
 
-
-     - name: Configure AWS Credentials
+     - name: Configure AWS Credentials                  ## Configuring the AWS credential using key ID and access key
        uses: aws-actions/configure-aws-credentials@v4
        with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -76,10 +72,7 @@ jobs:             #first job
       run: terragrunt run-all plan -no-color --terragrunt-non-interactive      
       continue-on-error: true       ## If there is an error, provide the error message                                                        
 
-
-## The second job "Init and Apply"
-
-  apply:
+  apply:                             ## The second job "Init and Apply"
     name: "Terragrunt Apply"
     if: github.event_name == 'push'
     runs-on: ubuntu-24.04         # ubuntu-lastest can only be used  
@@ -92,21 +85,18 @@ jobs:             #first job
         with:                      # This switches (checkout) to the approciate branch
           ref: ${{ github.event.pull_request.head.ref }}          # Switches to the  head-ref branch
 
-## Installing terraform to the ubuntu server
-      - name: "Install Terraform"
+      - name: "Install Terraform"               ## Installing terraform to the ubuntu server
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
           terraform_wrapper: true
 
-## Installing terragrunt to the ubuntu server
-      - name: "Install Terragrunt"
+      - name: "Install Terragrunt"          ## Installing terragrunt to the ubuntu server
         uses: autero1/action-terragrunt@v3
         with:
           terragrunt-version: ${{ env.TERRAGRUNT_VERSION }}
 
-## Configuring the AWS credential using key ID and access key
-     - name: "Configure AWS Credentials"
+     - name: "Configure AWS Credentials"          ## Configuring the AWS credential using key ID and access key
        uses: aws-actions/configure-aws-credentials@v4
        with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
