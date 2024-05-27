@@ -27,7 +27,7 @@ concurrency: Cloudenviroment      # This ensures that only a single workflow wil
 # This groups together all the jobs that run in the workflow file.
 jobs:             #first job                  
   plan:                          
-    name: "Terragrunt Init, validate and Plan"
+    name: "Terragrunt Init, validate, and Plan"
     if: github.event_name == 'pull_request'       # The Condtional statement: If the event that triggers my work flow is a pull request then github actions will run the workflow
     runs-on: ubuntu-24.04         # ubuntu-lastest can only be used  
     defaults:
