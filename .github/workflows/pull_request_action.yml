@@ -3,12 +3,12 @@ on:                     # Not optional(Required)
   workflow_dispatch:    # This is an event to allow workflow to be trigered manually
   push:                 # Define the event that triggers the workflow automatically
     branches:           # Define the target
-      - main
+      - master
       # - test          # This is to shows that multiple branches can be targeted for a specific event triger
 
   pull_request:
     branches:
-      - main 
+      - master 
       #- test -         # This is to shows that multiple branches can be targeted for a specific event triger
 
 # Defining the variables on a workflow level
@@ -25,8 +25,8 @@ permissions:            # This will use the token in the code to run
 concurrency: Cloudenviroment      # This ensures that only a single workflow will run at a time
 
 # This groups together all the jobs that run in the workflow file.
-jobs:                             
-  plan:                           # First job 
+jobs:             #first job                  
+  plan:                          
     name: "Terragrunt Init, validate and Plan"
     if: github.event_name == 'pull_request'       # The Condtional statement: If the event that triggers my work flow is a pull request then github actions will run the workflow
     runs-on: ubuntu-24.04         # ubuntu-lastest can only be used  
