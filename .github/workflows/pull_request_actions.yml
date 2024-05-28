@@ -9,7 +9,7 @@ on:                     # Not optional(Required)
   pull_request:
     branches:
       - master 
-      #- test -         # This is to show that multiple branches can be targeted for a specific event trigger
+      #- test          # This is to show that multiple branches can be targeted for a specific event trigger
 
 permissions:            # This will use the token in the code to run
   contents: write
@@ -18,7 +18,7 @@ permissions:            # This will use the token in the code to run
 
 concurrency: Cloudenviroment      # This ensures that only a single workflow will run at a time
 
-# Terraform plan for dev enviroment
+# Terraform plan for dev environment
 jobs:
   run_plan_in_dev_enviroment:
     name: terraform init, validate, plan
@@ -31,8 +31,7 @@ jobs:
       ENVIROMENT_NAME: 'dev'
     secrets: inherit
 
-# Terraform apply for dev enviroment
-jobs:
+# Terraform apply for dev environment
   run_apply_in_dev_enviroment:
     name: terraform apply
     needs: [run_plan_in_dev_enviroment]      # Check: the first job:plan_in_dev_enviroment must be successful before running apply
@@ -45,8 +44,7 @@ jobs:
       ENVIROMENT_NAME: 'dev'
     secrets: inherit
 
-# Terraform plan for prod enviroment
-jobs:
+# Terraform plan for prod environment
   run_plan_in_prod_enviroment:
     name: terraform init, validate, plan
     uses: ./.github/workflows/reuseable_plan_action.yml
@@ -58,11 +56,10 @@ jobs:
       ENVIROMENT_NAME: 'prod'
     secrets: inherit
 
-# Terraform apply for prod enviroment
-jobs:
+# Terraform apply for prod environment
   run_apply_in_prod_enviroment:
     name: terraform apply
-    needs: [run_plan_in_prod_enviroment]                  # Check: run_plan_in_prod_enviroment must be success before apply
+    needs: [run_plan_in_prod_enviroment]      # Check: run_plan_in_prod_enviroment must be successful before running apply
     uses: ./.github/workflows/reuseable_apply_action.yml
     with:
       TERRAFORM_VERSION: '1.7.2'
@@ -71,5 +68,7 @@ jobs:
       AWS_REGION: 'us-east-1'
       ENVIROMENT_NAME: 'prod'
     secrets: inherit
+
+
 
 
