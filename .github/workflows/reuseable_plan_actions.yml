@@ -1,4 +1,5 @@
-name: Run on call from another workflow
+# Run on call from another workflow
+
 on:
   workflow_call:                # This must be present for this to be a reusable workflow
     inputs:
@@ -21,14 +22,14 @@ on:
         required: true
         type: string
 
-      ENVIROMENT_NAME:
+      ENVIRONMENT_NAME:
         required: true
         type: string
 
 jobs:                             
   plan:                          
     name: "Terragrunt Init, validate and Plan"
-    enviroment: ${{inputs.ENVIROMENT_NAME}}
+    enviroment: ${{inputs.ENVIRONMENT_NAME}}
     if: github.event_name == 'pull_request'       # The conditional statement: If the event that triggers my workflow is a pull request then GitHub actions will run the workflow
     runs-on: ubuntu-24.04                          # ubuntu-latest can also be used  
     defaults:

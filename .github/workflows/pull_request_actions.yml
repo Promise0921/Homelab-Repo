@@ -28,7 +28,7 @@ jobs:
       TERRAGRUNT_VERSION: '0.56.0'
       TERRAFORM_WORKING_DIR: ./applied/dev
       AWS_REGION: 'us-east-1'
-      ENVIROMENT_NAME: 'dev'
+      ENVIRONMENT_NAME: 'dev'
     secrets: inherit
 
 # Terraform apply for dev environment
