@@ -22,7 +22,7 @@ concurrency: Cloudenviroment      # This ensures that only a single workflow wil
 jobs:
   run_plan_in_dev_enviroment:
     name: terraform init, validate, plan
-    uses: ./.github/workflows/reuseable_plan_action.yml
+    uses: ./.github/workflows/reuseable_plan_actions.yml
     with:
       TERRAFORM_VERSION: '1.7.2'
       TERRAGRUNT_VERSION: '0.56.0'
@@ -35,7 +35,7 @@ jobs:
   run_apply_in_dev_enviroment:
     name: terraform apply
     needs: [run_plan_in_dev_enviroment]      # Check: the first job:plan_in_dev_enviroment must be successful before running apply
-    uses: ./.github/workflows/reuseable_apply_action.yml
+    uses: ./.github/workflows/reuseable_apply_actions.yml
     with:
       TERRAFORM_VERSION: '1.7.2'
       TERRAGRUNT_VERSION: '0.56.0'
@@ -47,7 +47,7 @@ jobs:
 # Terraform plan for prod environment
   run_plan_in_prod_enviroment:
     name: terraform init, validate, plan
-    uses: ./.github/workflows/reuseable_plan_action.yml
+    uses: ./.github/workflows/reuseable_plan_actions.yml
     with:
       TERRAFORM_VERSION: '1.7.2'
       TERRAGRUNT_VERSION: '0.56.0'
@@ -60,7 +60,7 @@ jobs:
   run_apply_in_prod_enviroment:
     name: terraform apply
     needs: [run_plan_in_prod_enviroment]      # Check: run_plan_in_prod_enviroment must be successful before running apply
-    uses: ./.github/workflows/reuseable_apply_action.yml
+    uses: ./.github/workflows/reuseable_apply_actions.yml
     with:
       TERRAFORM_VERSION: '1.7.2'
       TERRAGRUNT_VERSION: '0.56.0'
