@@ -23,13 +23,14 @@ on:
         type: string
 
       ENVIRONMENT_NAME:
+        description: " The enviroment to use in running the workflows"
         required: true
         type: string
 
 jobs:                             
   plan:                          
     name: "Terragrunt Init, validate and Plan"
-    environment: ${{inputs.ENVIRONMENT_NAME}}
+    environment: ${{ inputs.ENVIRONMENT_NAME }}
     if: github.event_name == 'pull_request'       # The conditional statement: If the event that triggers my workflow is a pull request then GitHub actions will run the workflow
     runs-on: ubuntu-24.04                          # ubuntu-latest can also be used  
     defaults:

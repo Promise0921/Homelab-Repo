@@ -20,32 +20,33 @@ concurrency: Cloudenviroment      # This ensures that only a single workflow wil
 
 # Terraform plan for dev environment
 jobs:
-  run_plan_in_dev_enviroment:
+  run_plan_in_dev_environment:
     name: terraform init, validate, plan
     uses: ./.github/workflows/reuseable_plan_actions.yml
     with:
+      ENVIRONMENT_NAME: 'dev'
       TERRAFORM_VERSION: '1.7.2'
       TERRAGRUNT_VERSION: '0.56.0'
       TERRAFORM_WORKING_DIR: ./applied/dev
       AWS_REGION: 'us-east-1'
-      ENVIRONMENT_NAME: 'dev'
+      
     secrets: inherit
 
 # Terraform apply for dev environment
-  run_apply_in_dev_enviroment:
+  run_apply_in_dev_environment:
     name: terraform apply
-    needs: [run_plan_in_dev_enviroment]      # Check: the first job:plan_in_dev_enviroment must be successful before running apply
+    needs: [run_plan_in_dev_environment]      # Check: the first job:plan_in_dev_enviroment must be successful before running apply
     uses: ./.github/workflows/reuseable_apply_actions.yml
     with:
+      ENVIROMENT_NAME: 'dev'
       TERRAFORM_VERSION: '1.7.2'
       TERRAGRUNT_VERSION: '0.56.0'
       TERRAFORM_WORKING_DIR: ./applied/dev
       AWS_REGION: 'us-east-1'
-      ENVIROMENT_NAME: 'dev'
     secrets: inherit
 
 # Terraform plan for prod environment
-  run_plan_in_prod_enviroment:
+  run_plan_in_prod_environment:
     name: terraform init, validate, plan
     uses: ./.github/workflows/reuseable_plan_actions.yml
     with:
@@ -59,7 +60,7 @@ jobs:
 # Terraform apply for prod environment
   run_apply_in_prod_enviroment:
     name: terraform apply
-    needs: [run_plan_in_prod_enviroment]      # Check: run_plan_in_prod_enviroment must be successful before running apply
+    needs: [run_plan_in_prod_environment]      # Check: run_plan_in_prod_enviroment must be successful before running apply
     uses: ./.github/workflows/reuseable_apply_actions.yml
     with:
       TERRAFORM_VERSION: '1.7.2'
