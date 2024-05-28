@@ -28,7 +28,7 @@ on:
 jobs:                             
   plan:                          
     name: "Terragrunt Init, validate and Plan"
-    enviroment: ${{inputs.ENVIRONMENT_NAME}}
+    environment: ${{inputs.ENVIRONMENT_NAME}}
     if: github.event_name == 'push'       # The conditional statement: If the event that triggers my workflow is a pull request then GitHub actions will run the workflow
     runs-on: ubuntu-24.04         # ubuntu-latest can also be used  
     defaults:
