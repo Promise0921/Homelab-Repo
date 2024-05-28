@@ -1,0 +1,74 @@
+name: Terraform plan and apply    ##This is optional
+on:                     # Not optional(Required)
+  workflow_dispatch:    # This is an event to allow workflow to be triggered manually
+  push:                 # Define the event that triggers the workflow automatically
+    branches:           # Define the target
+      - master
+      #- test          # This is to show that multiple branches can be targeted for a specific event trigger
+
+  pull_request:
+    branches:
+      - master 
+      #- test          # This is to show that multiple branches can be targeted for a specific event trigger
+
+permissions:            # This will use the token in the code to run
+  contents: write
+  pull-requests: read
+  issues: write
+
+concurrency: Cloudenviroment      # This ensures that only a single workflow will run at a time
+
+# Terraform plan for dev environment
+jobs:
+  run_plan_in_dev_environment:
+    name: terraform init, validate, plan
+    uses: ./.github/workflows/reusable_plan_actions.yml
+    with:
+      ENVIRONMENT_NAME: 'dev'
+      TERRAFORM_VERSION: '1.7.2'
+      TERRAGRUNT_VERSION: '0.56.0'
+      TERRAFORM_WORKING_DIR: ./applied/dev
+      AWS_REGION: 'us-east-1'      
+    secrets: inherit
+
+# Terraform apply for dev environment
+  run_apply_in_dev_environment:
+    name: terraform apply
+    needs: [run_plan_in_dev_environment]      # Check: the first job:plan_in_dev_enviroment must be successful before running apply
+    uses: ./.github/workflows/reusable_apply_actions.yml
+    with:
+      ENVIRONMENT_NAME: 'dev'
+      TERRAFORM_VERSION: '1.7.2'
+      TERRAGRUNT_VERSION: '0.56.0'
+      TERRAFORM_WORKING_DIR: ./applied/dev
+      AWS_REGION: 'us-east-1'
+    secrets: inherit
+
+# Terraform plan for prod environment
+  run_plan_in_prod_environment:
+    name: terraform init, validate, plan
+    uses: ./.github/workflows/reusable_plan_actions.yml
+    with:
+      ENVIRONMENT_NAME: 'prod'
+      TERRAFORM_VERSION: '1.7.2'
+      TERRAGRUNT_VERSION: '0.56.0'
+      TERRAFORM_WORKING_DIR: ./applied/prod
+      AWS_REGION: 'us-east-1'      
+    secrets: inherit
+
+# Terraform apply for prod environment
+  run_apply_in_prod_enviroment:
+    name: terraform apply
+    needs: [run_plan_in_prod_environment]      # Check: run_plan_in_prod_enviroment must be successful before running apply
+    uses: ./.github/workflows/reusable_apply_actions.yml
+    with:
+      ENVIRONMENT_NAME: 'prod'
+      TERRAFORM_VERSION: '1.7.2'
+      TERRAGRUNT_VERSION: '0.56.0'
+      TERRAFORM_WORKING_DIR: ./applied/prod
+      AWS_REGION: 'us-east-1'
+    secrets: inherit
+
+
+
+
