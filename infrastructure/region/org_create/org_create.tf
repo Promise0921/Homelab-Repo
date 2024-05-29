@@ -16,11 +16,11 @@ data "aws_iam_policy_document" "ec2_block_policy" {
     effect = "Deny"
     actions = ["ec2:RunInstances"]
     resources = ["*"]
-    
+
     condition {
-      test     = "StringEquals"
-      variable = "ec2:SecurityGroupIds"
-      values   = ["sg-000acf41e2f09d0f3"]
+      test     = "ForAnyValue:StringEquals"
+      variable = "ec2:SecurityGroupRules/0.0.0.0/0:CidrIp"
+      values   = ["0.0.0.0/0"]
     }
   }
 }
@@ -34,11 +34,19 @@ data "aws_iam_policy_document" "block_iam_without_tag" {
     
     condition {
       test     = "Null"
-      variable = "aws:RequestTag/Email"
+      variable = "aws:RequestTag/Email"   # (Wildcard *) AWS does not support it in IAM policy conditions directly. 
+      values   = ["true"]
+    }
+
+    condition {
+      test     = "Null"
+      variable = "aws:RequestTag/email"    
       values   = ["true"]
     }
   }
 }
+
+
 
          
          

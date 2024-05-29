@@ -1,1 +1,1 @@
-## This is to trick terragrunt into acceptingthe path as module.
+## This is to trick terragrunt into accepting  the path as module.
