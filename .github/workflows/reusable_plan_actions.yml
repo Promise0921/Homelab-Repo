@@ -1,5 +1,4 @@
-# Run on call from another workflow
-
+name: Run on call from another workflow
 on:
   workflow_call:                # This must be present for this to be a reusable workflow
     inputs:
