@@ -73,7 +73,7 @@ jobs:
         continue-on-error: true       ## If there is an error, provide the error message  
 
 # This will destroy everything 
-   - name: "Terragrunt Destroy"
-     id: destroy
-     run: terragrunt run-all destroy -no-color --terragrunt-non-interactive      
-     continue-on-error: true 
+      - name: "Terragrunt Destroy"
+        id: destroy
+        run: terragrunt run-all destroy -no-color --terragrunt-non-interactive      
+        continue-on-error: true 
