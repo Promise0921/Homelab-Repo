@@ -63,14 +63,14 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-      - name: "Terragrunt init"
-        id: init
-        run: terragrunt run-all init -no-color --terragrunt-non-interactive  ## -no-color: don't apply any color to the output: Plain output 
-                                                                             ## --terragrunt-non-interactive: This is an automation - Default to yes, no human interaction needed  
-      - name: "Terragrunt apply"
-        id: plan
-        run: terragrunt run-all apply -no-color --terragrunt-non-interactive      
-        continue-on-error: true       ## If there is an error, provide the error message  
+      # - name: "Terragrunt init"
+      #   id: init
+      #   run: terragrunt run-all init -no-color --terragrunt-non-interactive  ## -no-color: don't apply any color to the output: Plain output 
+      #                                                                        ## --terragrunt-non-interactive: This is an automation - Default to yes, no human interaction needed  
+      # - name: "Terragrunt apply"
+      #   id: plan
+      #   run: terragrunt run-all apply -no-color --terragrunt-non-interactive      
+      #   continue-on-error: true       ## If there is an error, provide the error message  
 
 # This will destroy everything 
       - name: "Terragrunt Destroy"
