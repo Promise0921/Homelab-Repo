@@ -11,6 +11,9 @@ module "org_create" {
   iam_policy_json = data.aws_iam_policy_document.block_iam_without_tag.json
 }
 
+
+data "aws_organizations_organization" "current" {}
+
 data "aws_iam_policy_document" "ec2_block_policy" {
   statement {
     effect = "Deny"
