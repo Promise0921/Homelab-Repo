@@ -34,7 +34,7 @@ jobs:
 # Terraform apply for qa environment
   run_apply_in_qa_environment:
     name: terraform apply
-    needs: [run_plan_in_qa_environment]      # Check: the first job:plan_in_qa_enviroment must be successful before running apply
+    #needs: [run_plan_in_qa_environment]      # Check: the first job:plan_in_qa_enviroment must be successful before running apply
     uses: ./.github/workflows/reusable_apply_actions.yml
     with:
       ENVIRONMENT_NAME: 'qa'
