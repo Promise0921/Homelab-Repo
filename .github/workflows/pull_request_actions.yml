@@ -25,7 +25,8 @@ jobs:
     uses: ./.github/workflows/terraform_kics.yml
     with:
       ENABLE_COMMENTS: true
-      WORKING_DIRECTORY: 'infrastructure/region/iam_group'
+      WORKING_DIRECTORY: ./infrastructure/region/iam_group
+    secrets: inherit
 
 # Terraform plan for qa environment
   run_plan_in_qa_environment:
