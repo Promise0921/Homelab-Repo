@@ -19,10 +19,7 @@ data "aws_iam_policy_document" "dev_inline_policy" {
   statement {
     sid = ""
 
-    actions = [
-      "cloudtrail:*",
-      "cloudwatch:*"
-    ]
+    actions = ["*"]
 
     resources = ["*"]
   }
@@ -30,10 +27,7 @@ data "aws_iam_policy_document" "dev_inline_policy" {
   statement {
     sid = ""
 
-    actions = [
-      "ec2:*",
-      "s3:*"
-    ]
+    actions = ["*"]
 
     resources = ["*"]
   }
