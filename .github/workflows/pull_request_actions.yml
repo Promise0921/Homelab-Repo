@@ -44,7 +44,6 @@ jobs:
         cat myResults/results.json
 
 # Terraform plan for qa environment
-jobs:
   run_plan_in_qa_environment:
     name: terraform init, validate, plan
     uses: ./.github/workflows/reusable_plan_actions.yml
