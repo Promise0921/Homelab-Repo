@@ -39,13 +39,13 @@ jobs:
         ignore_on_exit: results
         enable_comments: true
 
-    - name: Display kics results
+    - name: Display KICS Results
       run: |
         cat myResults/results.json
 
 # Terraform plan for qa environment
   run_plan_in_qa_environment:
-    name: terraform init, validate, plan
+    name: Terraform init, validate, plan
     needs: [kics]
     uses: ./.github/workflows/reusable_plan_actions.yml
     with:
@@ -58,8 +58,8 @@ jobs:
 
 # Terraform apply for qa environment
   run_apply_in_qa_environment:
-    name: terraform apply
-    needs: [run_plan_in_qa_environment]      # Check: the first job:plan_in_qa_enviroment must be successful before running apply
+    name: Terraform apply
+    needs: [run_plan_in_qa_environment]      # Check: theplan_in_qa_enviroment must be successful before running apply
     uses: ./.github/workflows/reusable_apply_actions.yml
     with:
       ENVIRONMENT_NAME: 'qa'
