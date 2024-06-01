@@ -33,7 +33,7 @@ jobs:
     - name: Run KICS scan
       uses: checkmarx/kics-github-action@v2.0.0
       with: 
-        path: ./infrastructure/region/org_create
+        path: ./infrastructure/region/iam_group
         token: ${{ secrets.GITHUB_TOKEN }}
         output_path: myResults/
         ignore_on_exit: results
@@ -46,19 +46,20 @@ jobs:
 # Terraform plan for qa environment
   run_plan_in_qa_environment:
     name: terraform init, validate, plan
+    needs: [kics]
     uses: ./.github/workflows/reusable_plan_actions.yml
     with:
       ENVIRONMENT_NAME: 'qa'
       TERRAFORM_VERSION: '1.7.2'
       TERRAGRUNT_VERSION: '0.56.0'
-      TERRAFORM_WORKING_DIR: ./applied/qa/org_create
+      TERRAFORM_WORKING_DIR: ./applied/qa/iam
       AWS_REGION: 'us-east-1'      
     secrets: inherit
 
 # Terraform apply for qa environment
   run_apply_in_qa_environment:
     name: terraform apply
-    #needs: [run_plan_in_qa_environment]      # Check: the first job:plan_in_qa_enviroment must be successful before running apply
+    needs: [run_plan_in_qa_environment]      # Check: the first job:plan_in_qa_enviroment must be successful before running apply
     uses: ./.github/workflows/reusable_apply_actions.yml
     with:
       ENVIRONMENT_NAME: 'qa'
