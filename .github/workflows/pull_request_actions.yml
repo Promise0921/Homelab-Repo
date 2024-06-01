@@ -18,6 +18,31 @@ permissions:            # This will use the token in the code to run
 
 concurrency: Cloudenviroment      # This ensures that only a single workflow will run at a time
 
+# KICs - Scanning for misconfig, vulunerabilties in the code
+
+jobs:
+  kics:
+    name: Run KICS code Analysis
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+    - uses: actions/checkout@v3
+      with:
+         ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Run KICS scan
+      uses: checkmarx/kics-github-action@v2.0.0
+      with: 
+        path: ./infrastructure/region/org_create
+        token: ${{ secrets.GITHUB_TOKEN }}
+        output_path: myResults/
+        ignore_on_exit: results
+        enable_comments: true
+
+    - name: Display kics results
+      run: |
+        cat myResults/results.json
+
 # Terraform plan for qa environment
 jobs:
   run_plan_in_qa_environment:
